@@ -18,4 +18,6 @@ class Block
         void setBlock(blockOption val);
 
         blockOption getVal();
+
+        char blockToChar();
 }
