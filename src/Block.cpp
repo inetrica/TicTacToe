@@ -1,15 +1,15 @@
 #include "Block.h"
-#include <stdio.h>
+#include <iostream>
 
 Block::Block(){
     value = Opt_E;
 }
 
-void Block::setBlock(blockOption val){
+void Block::setVal(blockOption val){
     value = val;
 }
 
-blockOption Block::Block(){
+Block::blockOption Block::getVal(){
     return value;
 }
 

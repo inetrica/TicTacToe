@@ -1,3 +1,6 @@
+#ifndef BOARD_H
+#define BOARD_H
+
 #include "Block.h"
 
 class Board
@@ -11,7 +14,9 @@ class Board
         Board(int size);
         ~Board();
 
-        void setBlock(int row, int col, blockOption val);
+        void setBlock(int row, int col, Block::blockOption val);
 
         void printBoard();
-}
+};
+
+#endif

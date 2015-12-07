@@ -1,9 +1,8 @@
-
+#ifndef BLOCK_H
+#define BLOCK_H
 class Block
 {
-    private:
-        blockOption;
-
+    
     public:
 
         enum blockOption
@@ -11,13 +10,19 @@ class Block
             Opt_X, //X
             Opt_O, //O
             Opt_E  //Empty
-        }
+        };
 
         Block();
 
-        void setBlock(blockOption val);
+        void setVal(blockOption val);
 
         blockOption getVal();
 
         char blockToChar();
-}
+
+    private:
+        blockOption value;
+
+};
+
+#endif
