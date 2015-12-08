@@ -27,12 +27,14 @@ Board::~Board(){
     delete[] board;
 }
 
-void Board::setBlock(int row, int col, Block::blockOption val){
+int Board::setBlock(int row, int col, Block::blockOption val){
     if(size <= row || size <= col || row < 0 || col < 0){
         std::cout << row << ", " << col << " is not a valid position" << std::endl;
+        return -1;
     } else {
         board[row][col].setVal(val);
     }
+    return 0;
 }
 
 void Board::printBoard(){

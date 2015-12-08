@@ -14,7 +14,7 @@ class Board
         Board(int size);
         ~Board();
 
-        void setBlock(int row, int col, Block::blockOption val);
+        int setBlock(int row, int col, Block::blockOption val);
 
         void printBoard();
 };
