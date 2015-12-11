@@ -4,9 +4,14 @@
 #include <limits>
 
 int
+why(){
+	std::cout << "what" std::endl;
+}
+
+int
 readInput(int & row, int & col){
     char ch;
-    
+
     //get first int
     if(!(std::cin >> row))
         return -1;
