@@ -3,7 +3,7 @@ CFLAGS = -Wall -Werror
 INCLUDE = -I./head
 SDIR = src
 ODIR = obj
-OBJFILES = Main.o Board.o Block.o
+OBJFILES = Main.o Board.o Block.o MainMenu.o
 OBJS = $(patsubst %, $(ODIR)/%, $(OBJFILES))
 EXE = ttt
 

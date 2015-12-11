@@ -18,6 +18,8 @@ class MainMenu {
 		gamemode getGamemode();
 		difficulty getDifficulty();
 
+		int readInput(gamemode & mode, difficulty & diff);
+
 		void runMainMenu();
 
 	private:
