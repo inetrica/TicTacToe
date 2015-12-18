@@ -5,9 +5,6 @@
 
 class Board
 {
-    private:
-        Block **board;
-        int size;
     public:
 
         Board();
@@ -16,7 +13,11 @@ class Board
 
         int setBlock(int row, int col, Block::blockOption val);
 
-        void printBoard();
+	private:
+        Block **board;
+        int size;
+
+
 };
 
 #endif

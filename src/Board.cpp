@@ -36,19 +36,3 @@ int Board::setBlock(int row, int col, Block::blockOption val){
     }
     return 0;
 }
-
-void Board::printBoard(){
-    std::string border = "#############";
-    std::string buffsp = "#   #   #   #";
-    std::cout << border << std::endl;
-    for(int i = 0; i < size; i++){
-        std::cout << buffsp << std::endl;
-        std::cout << "#";
-        for(int j = 0; j < size; j++){
-            std::cout << " " << board[i][j].blockToChar() << " #";
-        }
-        std::cout << std::endl;
-        std::cout << buffsp << std::endl;
-        std::cout << border << std::endl;
-    }
-}
