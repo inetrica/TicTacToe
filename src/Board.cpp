@@ -6,6 +6,9 @@ Board::Board(){
     board = new Block*[size];
     for(int i = 0; i < size; i++){
         board[i] = new Block[size];
+        for(int j = 0; j < size; j++){
+			 board[i][j].setPos(j*BLOCK_SZ, i*BLOCK_SZ);
+        }
     }
 }
 
@@ -17,6 +20,9 @@ Board::Board(int size){
     board = new Block*[size];
     for(int i = 0; i < size; i++){
         board[i] = new Block[size];
+    	for(int j = 0; j < size; j++){
+			 board[i][j].setPos(j*BLOCK_SZ, i*BLOCK_SZ);
+        }
     }
 }
 
@@ -35,4 +41,12 @@ int Board::setBlock(int row, int col, Block::blockOption val){
         board[row][col].setVal(val);
     }
     return 0;
+}
+
+void Board::draw(sf::RenderWindow & window){
+	for(int i = 0; i < size; i++){
+		for(int j = 0; j < size; j++){
+			window.draw(board[i][j].getSprite());
+		}
+	}
 }

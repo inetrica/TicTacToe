@@ -1,5 +1,11 @@
 #ifndef BLOCK_H
 #define BLOCK_H
+
+#include <SFML/Graphics.hpp>
+#include "Textures.h"
+
+#define BLOCK_SZ 70
+
 class Block
 {
     
@@ -14,14 +20,26 @@ class Block
 
         Block();
 
+        ~Block();
+
+        int getXpos();
+
+        int getYpos();
+
+        void setPos(int x, int y);
+
         void setVal(blockOption val);
 
         blockOption getVal();
 
         char blockToChar();
+		
+		sf::Sprite getSprite();
 
     private:
         blockOption value;
+		sf::Sprite sprite;
+		int xpos, ypos;
 
 };
 

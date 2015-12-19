@@ -13,6 +13,8 @@ class Board
 
         int setBlock(int row, int col, Block::blockOption val);
 
+        void draw(sf::RenderWindow & window);
+
 	private:
         Block **board;
         int size;
