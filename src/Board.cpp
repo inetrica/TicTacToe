@@ -55,39 +55,60 @@ void Board::draw(sf::RenderWindow & window){
  * return Opt_E if nobody's won, otherwise return the winner
  */
 Block::blockOption Board::checkWinCondition(){
-	bool matchRow = true;
-	bool matchCol = true;
-
-	//check diagonals
-	if((board[0][0].getVal() == board[1][1].getVal() && board[1][1].getVal() == board[2][2].getVal()) ||
-			(board[0][2].getVal() == board[1][1].getVal() && board[1][1].getVal() == board[2][0].getVal())){
-		return board[1][1].getVal();
-	}
+	bool match = true;
+	Block::blockOption prev = Block::Opt_E;
 
 
-
-	//check rows and columns
-	for(int i = 0; i < size; i++){
-		matchRow = true;
-		matchCol = true;
-		Block::blockOption row = board[i][0].getVal();
-		Block::blockOption col = board[0][i].getVal();
-		for(int j = 1; j < size; j++){
-			
-			//row
-			if(matchRow && board[i][j].getVal() == row){
-				matchRow = false;
+	if((prev = board[0][0].getVal()) != Block::Opt_E){
+		match = true;
+		for(int i = 1; i < size; i++){
+			if(prev != board[i][i].getVal()){
+				match = false;
+				break;
 			}
-			row = board[i][j].getVal();
-
-			//col
-			if(matchCol && board[j][i].getVal() == col){
-				matchCol = false;
-			}
-			col = board[j][i].getVal();
 		}
-		if(matchRow) return row;
-		if(matchCol) return col;
+		if(match) return prev;
 	}
+
+	if((prev = board[0][size - 1].getVal()) != Block::Opt_E){
+		match = true;
+		int i = 1;
+		int j = size - 1;
+		for(; i < size && j > 0; i++, j--){
+			if(prev != board[i][j].getVal()){
+				match = false;
+				break;
+			}
+		}
+		if(match) return prev;
+	}
+
+
+	//check rows
+	for(int i = 0; i < size; i++){
+		match = true;
+		if((prev = board[i][0].getVal()) == Block::Opt_E) continue;
+		for(int j = 1; j < size; j++){
+			if(prev != board[i][j].getVal()){
+				match = false;
+				break;
+			}
+		}
+		if(match) return prev;
+	}
+
+	//check cols
+	for(int i = 0; i < size; i++){
+		match = true;
+		if((prev = board[0][i].getVal()) == Block::Opt_E) continue;
+		for(int j = 1; j < size; j++){
+			if(prev != board[j][i].getVal()){
+				match = false;
+				break;
+			}
+		}
+		if(match) return prev;
+	}
+	
 	return Block::Opt_E;
 }
