@@ -74,7 +74,7 @@ Block::blockOption Board::checkWinCondition(){
 		match = true;
 		int i = 1;
 		int j = size - 2;
-		for(; i < size && j > 0; i++, j--){
+		for(; i < size && j >= 0; i++, j--){
 			if(prev != board[i][j].getVal()){
 				match = false;
 				break;
