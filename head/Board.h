@@ -15,6 +15,8 @@ class Board
 
         void draw(sf::RenderWindow & window);
 
+		Block::blockOption checkWinCondition();
+
 	private:
         Block **board;
         int size;

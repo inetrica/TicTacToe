@@ -50,3 +50,44 @@ void Board::draw(sf::RenderWindow & window){
 		}
 	}
 }
+
+/*
+ * return Opt_E if nobody's won, otherwise return the winner
+ */
+Block::blockOption Board::checkWinCondition(){
+	bool matchRow = true;
+	bool matchCol = true;
+
+	//check diagonals
+	if((board[0][0].getVal() == board[1][1].getVal() && board[1][1].getVal() == board[2][2].getVal()) ||
+			(board[0][2].getVal() == board[1][1].getVal() && board[1][1].getVal() == board[2][0].getVal())){
+		return board[1][1].getVal();
+	}
+
+
+
+	//check rows and columns
+	for(int i = 0; i < size; i++){
+		matchRow = true;
+		matchCol = true;
+		Block::blockOption row = board[i][0].getVal();
+		Block::blockOption col = board[0][i].getVal();
+		for(int j = 1; j < size; j++){
+			
+			//row
+			if(matchRow && board[i][j].getVal() == row){
+				matchRow = false;
+			}
+			row = board[i][j].getVal();
+
+			//col
+			if(matchCol && board[j][i].getVal() == col){
+				matchCol = false;
+			}
+			col = board[j][i].getVal();
+		}
+		if(matchRow) return row;
+		if(matchCol) return col;
+	}
+	return Block::Opt_E;
+}

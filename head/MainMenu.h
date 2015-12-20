@@ -5,24 +5,9 @@ class MainMenu {
 	public:
 		MainMenu();
 
-		enum gamemode{
-			SinglePlayer,
-			TwoPlayer
-		};
-
-		enum difficulty{
-			Easy,
-			Medium
-		};
-
-		gamemode getGamemode();
-		difficulty getDifficulty();
 
 
 	private:
-		bool active;
-		gamemode _gamemode;
-		difficulty _difficulty;
 
 };
 
