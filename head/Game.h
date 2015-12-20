@@ -2,6 +2,7 @@
 #define GAME_H
 
 #include <SFML/Graphics.hpp>
+#include "Board.h"
 
 class Game{
 	public:
@@ -17,10 +18,10 @@ class Game{
 		};
 
 		Game();
-		Game(gamemode mode, difficulty diff);
+		Game(gamemode mode, difficulty diff, int sz);
 		~Game();
 
-		int Game::checkWinCondition(const Board & board);
+		int getBoardSize();
 
 		void easySingle(sf::RenderWindow & window);
 
@@ -28,11 +29,12 @@ class Game{
 
 		void pvp(sf::RenderWindow & window);
 
-		void loop();
+		void loop(sf::RenderWindow & window);
 
 	private:
 		gamemode _gamemode;
 		difficulty _difficulty;
+		int boardSize;
 };
 
 #endif

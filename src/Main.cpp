@@ -1,24 +1,28 @@
 #include <SFML/Graphics.hpp>
 
-#include "Block.h"
-#include "Board.h"
+//#include "Block.h"
+//#include "Board.h"
+#include "Game.h"
 #include "MainMenu.h"
 
 #include <iostream>
 #include <stdlib.h>
 
-#define BOARD_SZ 3
-
 int
 main(){
 
-	sf::RenderWindow window(sf::VideoMode(BLOCK_SZ*BOARD_SZ, BLOCK_SZ*BOARD_SZ), "Tic Tac Toe");
+	Game game;
+
+	sf::RenderWindow window(sf::VideoMode(BLOCK_SZ*game.getBoardSize(), BLOCK_SZ*game.getBoardSize()), "Tic Tac Toe");
 	if(textures::load() < 0){
 		std::cout << "Error loading textures" << std::endl;
 		exit(-1);
 	}
 
-	Board* board = new Board(BOARD_SZ);
+	game.loop(window);
+
+	/*
+	Board* board = new Board(3);
 
     while (window.isOpen())
     {
@@ -36,6 +40,7 @@ main(){
     }
 
     delete board;
+    */
 
     return 0;
 

@@ -4,7 +4,7 @@ SFML = -lsfml-graphics -lsfml-window -lsfml-system
 INCLUDE = -I./head
 SDIR = src
 ODIR = obj
-OBJFILES = Main.o Board.o Block.o Textures.o
+OBJFILES = Main.o Game.o Board.o Block.o Textures.o
 OBJS = $(patsubst %, $(ODIR)/%, $(OBJFILES))
 EXE = ttt
 
