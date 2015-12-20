@@ -25,20 +25,46 @@ int Game::getBoardSize(){
 
 void Game::easySingle(sf::RenderWindow & window){
 	Board * board = new Board(boardSize);
+	bool won = false;
 
 	//TODO EDIT THIS LATER so that we dont check win condition on EVERY step of the loop
 	//instead only check wincondition on mouseclick.
-	while(window.isOpen() && (board->checkWinCondition() == Block::Opt_E)){
+	while(window.isOpen() && !won){
 		sf::Event event;
         while (window.pollEvent(event))
         {
-            if (event.type == sf::Event::Closed)
-                window.close();
+            switch(event.type){
+            	case sf::Event::Closed:
+            		window.close();
+            		break;
+				case sf::Event::MouseButtonPressed:
+					{
+					int mouseX = event.mouseButton.x;
+					int mouseY = event.mouseButton.y;
+					std::cout << "x " << mouseX << ", y " << mouseY << std::endl;
+					if(mouseX < 0 || mouseX > BLOCK_SZ*boardSize || mouseY < 0 || mouseY > BLOCK_SZ*boardSize) break;
+					int col = mouseX/BLOCK_SZ;
+					int row = mouseY/BLOCK_SZ;
+					if(row > boardSize || col > boardSize) break;
+					board->setBlock(row, col, Block::Opt_X);
+
+					won = (board->checkWinCondition() != Block::Opt_E);
+					}
+					break;
+				default:
+					//do nothing
+					break;
+            }
         }
 
         window.clear();
 		board->draw(window);
         window.display();
+
+		if(won){
+			std::cout << "Congratulations!" << std::endl;
+			window.close();
+		}
 	}
 
 	delete board;
