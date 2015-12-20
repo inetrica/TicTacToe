@@ -43,10 +43,10 @@ int Board::setBlock(int row, int col, Block::blockOption val){
     return 0;
 }
 
-void Board::draw(sf::RenderWindow & window){
+void Board::draw(sf::RenderWindow * window){
 	for(int i = 0; i < size; i++){
 		for(int j = 0; j < size; j++){
-			window.draw(board[i][j].getSprite());
+			window->draw(board[i][j].getSprite());
 		}
 	}
 }

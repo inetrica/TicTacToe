@@ -1,6 +1,7 @@
 CC = g++
 CFLAGS = -Wall -Werror
-SFML = -lsfml-graphics -lsfml-window -lsfml-system
+STD = -std=c++11
+LFLAGS = -lsfml-graphics -lsfml-window -lsfml-system -pthread
 INCLUDE = -I./head
 SDIR = src
 ODIR = obj
@@ -13,10 +14,10 @@ EXE = ttt
 all: $(EXE) 
 
 $(EXE): $(OBJS)
-	$(CC) $(CFLAGS) -o $(EXE) $^ $(SFML)
+	$(CC) $(CFLAGS) -o $(EXE) $^ $(LFLAGS)
 
 $(ODIR)/%.o: $(SDIR)/%.cpp
-	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
+	$(CC) $(CFLAGS) $(STD) $(INCLUDE) -c $< -o $@
 
 clean:
 	rm $(ODIR)/*.o $(EXE)

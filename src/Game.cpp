@@ -19,6 +19,17 @@ Game::~Game(){
 
 }
 
+void Game::renderThread(sf::RenderWindow * window, Board * board){
+	//std::lock_guard<std::mutex> guard(boardStateMutex);
+	while(window->isOpen()){
+		boardStateMutex.lock();
+		window->clear();
+		board->draw(window);
+		window->display();
+		boardStateMutex.unlock();
+	}
+}
+
 int Game::getBoardSize(){
 	return boardSize;
 }
@@ -27,8 +38,9 @@ void Game::easySingle(sf::RenderWindow & window){
 	Board * board = new Board(boardSize);
 	bool won = false;
 
-	//TODO EDIT THIS LATER so that we dont check win condition on EVERY step of the loop
-	//instead only check wincondition on mouseclick.
+	//std::thread renderer(&Game::renderThread, *this, &window, board);
+	std::thread renderer([this, &window, board](){renderThread(&window, board);});
+
 	while(window.isOpen() && !won){
 		sf::Event event;
         while (window.pollEvent(event))
@@ -46,9 +58,12 @@ void Game::easySingle(sf::RenderWindow & window){
 					int col = mouseX/BLOCK_SZ;
 					int row = mouseY/BLOCK_SZ;
 					if(row > boardSize || col > boardSize) break;
+					boardStateMutex.lock();
 					board->setBlock(row, col, Block::Opt_X);
+					//boardStateMutex.unlock();
 
 					won = (board->checkWinCondition() != Block::Opt_E);
+					boardStateMutex.unlock();
 					}
 					break;
 				default:
@@ -57,15 +72,19 @@ void Game::easySingle(sf::RenderWindow & window){
             }
         }
 
+        /*
         window.clear();
 		board->draw(window);
         window.display();
+        */
 
 		if(won){
 			std::cout << "Congratulations!" << std::endl;
 			window.close();
 		}
 	}
+
+	renderer.join();
 
 	delete board;
 }
@@ -78,7 +97,9 @@ void Game::pvp(sf::RenderWindow & window){
 	std::cout << "pvp" << std::endl;
 }
 
-void Game::loop(sf::RenderWindow & window){
+void Game::loop(){
+	sf::RenderWindow window(sf::VideoMode(BLOCK_SZ*boardSize, BLOCK_SZ*boardSize), "Tic Tac Toe");
+
 	if(_gamemode == SinglePlayer){
 		if(_difficulty == Easy){
 			easySingle(window);

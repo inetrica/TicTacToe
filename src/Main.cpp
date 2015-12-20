@@ -3,23 +3,22 @@
 //#include "Block.h"
 //#include "Board.h"
 #include "Game.h"
-#include "MainMenu.h"
+//#include "MainMenu.h"
 
 #include <iostream>
 #include <stdlib.h>
 
 int
 main(){
-
-	Game game;
-
-	sf::RenderWindow window(sf::VideoMode(BLOCK_SZ*game.getBoardSize(), BLOCK_SZ*game.getBoardSize()), "Tic Tac Toe");
+	//sf::RenderWindow window(sf::VideoMode(BLOCK_SZ*game.getBoardSize(), BLOCK_SZ*game.getBoardSize()), "Tic Tac Toe");
 	if(textures::load() < 0){
 		std::cout << "Error loading textures" << std::endl;
 		exit(-1);
 	}
 
-	game.loop(window);
+	Game game;
+
+	game.loop();
 
 	/*
 	Board* board = new Board(3);

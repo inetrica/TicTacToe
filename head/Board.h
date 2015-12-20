@@ -13,7 +13,7 @@ class Board
 
         int setBlock(int row, int col, Block::blockOption val);
 
-        void draw(sf::RenderWindow & window);
+        void draw(sf::RenderWindow * window);
 
 		Block::blockOption checkWinCondition();
 

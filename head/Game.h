@@ -2,6 +2,8 @@
 #define GAME_H
 
 #include <SFML/Graphics.hpp>
+#include <thread>
+#include <mutex>
 #include "Board.h"
 
 class Game{
@@ -21,6 +23,8 @@ class Game{
 		Game(gamemode mode, difficulty diff, int sz);
 		~Game();
 
+		void renderThread(sf::RenderWindow * window, Board * board);
+
 		int getBoardSize();
 
 		void easySingle(sf::RenderWindow & window);
@@ -29,12 +33,14 @@ class Game{
 
 		void pvp(sf::RenderWindow & window);
 
-		void loop(sf::RenderWindow & window);
+		void loop();
 
 	private:
 		gamemode _gamemode;
 		difficulty _difficulty;
 		int boardSize;
+
+		std::mutex boardStateMutex;
 };
 
 #endif
