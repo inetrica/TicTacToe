@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <stdlib.h>
+#include <unistd.h>
 
 Game::Game(){
 	_gamemode = SinglePlayer;
@@ -63,6 +64,7 @@ void Game::easySingle(sf::RenderWindow & window){
 
 		if(won){
 			std::cout << "Congratulations!" << std::endl;
+			sleep(1);
 			window.close();
 		}
 	}
