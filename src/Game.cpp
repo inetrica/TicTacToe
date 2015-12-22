@@ -26,10 +26,11 @@ int Game::getBoardSize(){
 
 void Game::easySingle(sf::RenderWindow & window){
 	Board * board = new Board(boardSize);
+	Player p1(Block::Opt_X, false);
+	Player p2(Block::Opt_O, true);
+
 	bool won = false;
 
-	//TODO EDIT THIS LATER so that we dont check win condition on EVERY step of the loop
-	//instead only check wincondition on mouseclick.
 	while(window.isOpen() && !won){
 		sf::Event event;
         while (window.pollEvent(event))
