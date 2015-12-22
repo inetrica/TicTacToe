@@ -36,6 +36,8 @@ class Game{
 		gamemode _gamemode;
 		difficulty _difficulty;
 		int boardSize;
+		Player *p1;
+		Player *p2;
 };
 
 #endif

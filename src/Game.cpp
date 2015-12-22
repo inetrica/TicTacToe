@@ -7,17 +7,26 @@
 Game::Game(){
 	_gamemode = SinglePlayer;
 	_difficulty = Easy;
+	p1 = new Player(Block::Opt_X, false);
+	p2 = new Player(Block::Opt_O, true);
 	boardSize = 3;
 }
 
 Game::Game(gamemode mode, difficulty diff, int sz){
 	_gamemode = mode;
+	p1 = new Player(Block::Opt_X, false);
+	if(_gamemode == SinglePlayer){
+		p2 = new Player(Block::Opt_O, true);
+	} else {
+		p2 = new Player(Block::Opt_O, false);
+	}
 	_difficulty = diff;
 	boardSize = sz;
 }
 
 Game::~Game(){
-
+	delete p1;
+	delete p2;
 }
 
 int Game::getBoardSize(){
@@ -25,9 +34,19 @@ int Game::getBoardSize(){
 }
 
 void Game::easySingle(sf::RenderWindow & window){
+	std::cout << "easy" << std::endl;
+}
+
+void Game::hardSingle(sf::RenderWindow & window){
+	std::cout << "hard" << std::endl;
+}
+
+void Game::pvp(sf::RenderWindow & window){
+	std::cout << "pvp" << std::endl;
+}
+
+void Game::loop(sf::RenderWindow & window){
 	Board * board = new Board(boardSize);
-	Player p1(Block::Opt_X, false);
-	Player p2(Block::Opt_O, true);
 
 	bool won = false;
 
@@ -73,14 +92,7 @@ void Game::easySingle(sf::RenderWindow & window){
 	delete board;
 }
 
-void Game::hardSingle(sf::RenderWindow & window){
-	std::cout << "hard" << std::endl;
-}
-
-void Game::pvp(sf::RenderWindow & window){
-	std::cout << "pvp" << std::endl;
-}
-
+/*
 void Game::loop(sf::RenderWindow & window){
 	if(_gamemode == SinglePlayer){
 		if(_difficulty == Easy){
@@ -93,3 +105,4 @@ void Game::loop(sf::RenderWindow & window){
 		pvp(window);
 	}
 }
+*/
