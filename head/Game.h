@@ -24,7 +24,7 @@ class Game{
 
 		int getBoardSize();
 
-		void easySingle(sf::RenderWindow & window);
+		int chooseEasy();
 
 		void hardSingle(sf::RenderWindow & window);
 

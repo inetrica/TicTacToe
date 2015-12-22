@@ -33,6 +33,8 @@ class Block
         blockOption getVal();
 
         char blockToChar();
+
+        static char blockOptionToChar(blockOption opt);
 		
 		sf::Sprite getSprite();
 

@@ -3,6 +3,8 @@
 #include <iostream>
 #include <stdlib.h>
 #include <unistd.h>
+#include <vector>
+#include <time.h>
 
 Game::Game(){
 	_gamemode = SinglePlayer;
@@ -33,8 +35,17 @@ int Game::getBoardSize(){
 	return boardSize;
 }
 
-void Game::easySingle(sf::RenderWindow & window){
-	std::cout << "easy" << std::endl;
+int Game::chooseEasy(){
+	std::vector<int> slots;
+	for(int i = 0; i < boardSize; i++){
+		for(int j = 0; j < boardSize; j++){
+			slots.push_back(i*3 + j);
+		}
+	}
+	srand(time(NULL));
+	int index = rand() % slots.size();
+	
+	return slots.at(index);
 }
 
 void Game::hardSingle(sf::RenderWindow & window){
@@ -47,43 +58,56 @@ void Game::pvp(sf::RenderWindow & window){
 
 void Game::loop(sf::RenderWindow & window){
 	Board * board = new Board(boardSize);
-
+	Player * currPlayer = p1;
 	bool won = false;
 
 	while(window.isOpen() && !won){
-		sf::Event event;
-        while (window.pollEvent(event))
-        {
-            switch(event.type){
-            	case sf::Event::Closed:
-            		window.close();
-            		break;
-				case sf::Event::MouseButtonPressed:
-					{
-					int mouseX = event.mouseButton.x;
-					int mouseY = event.mouseButton.y;
-					std::cout << "x " << mouseX << ", y " << mouseY << std::endl;
-					if(mouseX < 0 || mouseX > BLOCK_SZ*boardSize || mouseY < 0 || mouseY > BLOCK_SZ*boardSize) break;
-					int col = mouseX/BLOCK_SZ;
-					int row = mouseY/BLOCK_SZ;
-					if(row > boardSize || col > boardSize) break;
-					board->setBlock(row, col, Block::Opt_X);
+		int row, col;
+		//if(p1Turn || (!p1Turn && !(p2->isAI()))){
+		if(!(currPlayer->isAI())){
+			sf::Event event;
+			while (window.pollEvent(event))
+			{
+				switch(event.type){
+					case sf::Event::Closed:
+						window.close();
+						break;
+					case sf::Event::MouseButtonPressed:
+						{
+						int mouseX = event.mouseButton.x;
+						int mouseY = event.mouseButton.y;
+						std::cout << "x " << mouseX << ", y " << mouseY << std::endl;
+						if(mouseX < 0 || mouseX > BLOCK_SZ*boardSize || mouseY < 0 || mouseY > BLOCK_SZ*boardSize) break;
+						col = mouseX/BLOCK_SZ;
+						row = mouseY/BLOCK_SZ;
+						if(row > boardSize || col > boardSize) break;
+						board->setBlock(row, col, currPlayer->getMark());
 
-					won = (board->checkWinCondition() != Block::Opt_E);
-					}
-					break;
-				default:
-					//do nothing
-					break;
-            }
-        }
+						}
+						break;
+					default:
+						//do nothing
+						break;
+				}
+			}
+		} else { //npc option
+			if(_difficulty == Easy){ //"Easy" mode is just random choice
+				int slot = chooseEasy();
+				row = slot/boardSize;
+				col = slot%boardSize;
+				board->setBlock(row, col, currPlayer->getMark());
+			}
+		}
 
         window.clear();
 		board->draw(window);
         window.display();
 
-		if(won){
+		Block::blockOption won = board->checkWinCondition();
+		if(won != Block::Opt_E){
 			std::cout << "Congratulations!" << std::endl;
+			std::cout << "Player " << Block::blockOptionToChar(currPlayer->getMark())
+				<< " Wins!" << std::endl;
 			sleep(1);
 			window.close();
 		}
@@ -91,18 +115,3 @@ void Game::loop(sf::RenderWindow & window){
 
 	delete board;
 }
-
-/*
-void Game::loop(sf::RenderWindow & window){
-	if(_gamemode == SinglePlayer){
-		if(_difficulty == Easy){
-			easySingle(window);
-		} else { //Difficulty == hard 
-			hardSingle(window);
-		}
-	
-	} else { //2 Player mode
-		pvp(window);
-	}
-}
-*/

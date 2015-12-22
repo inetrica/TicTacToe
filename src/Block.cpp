@@ -57,6 +57,20 @@ char Block::blockToChar(){
     }
 }
 
+static char Block::blockOptionToChar(blockOption opt){
+	switch(opt){
+        case Opt_E:
+            return ' ';
+        case Opt_X:
+            return 'X';
+        case Opt_O:
+            return 'O';
+        default:
+            std::cerr << "Invalid Block Option set" << std::endl;
+            return '?';
+    }
+}
+
 sf::Sprite Block::getSprite(){
 	return sprite;
 }
