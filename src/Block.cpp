@@ -57,7 +57,7 @@ char Block::blockToChar(){
     }
 }
 
-static char Block::blockOptionToChar(blockOption opt){
+char Block::blockOptionToChar(blockOption opt){
 	switch(opt){
         case Opt_E:
             return ' ';
