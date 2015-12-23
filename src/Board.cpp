@@ -38,9 +38,16 @@ int Board::setBlock(int row, int col, Block::blockOption val){
         std::cout << row << ", " << col << " is not a valid position" << std::endl;
         return -1;
     } else {
+    	if(board[row][col].getVal() != Block::Opt_E){
+    		return -2;
+    	}
         board[row][col].setVal(val);
     }
     return 0;
+}
+
+Block::blockOption Board::getBlockValueAt(int row, int col){
+	return board[row][col].getVal();
 }
 
 void Board::draw(sf::RenderWindow & window){

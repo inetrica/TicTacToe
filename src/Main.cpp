@@ -21,26 +21,6 @@ main(){
 
 	game.loop(window);
 
-	/*
-	Board* board = new Board(3);
-
-    while (window.isOpen())
-    {
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
-
-        window.clear();
-		board->draw(window);
-        window.display();
-        
-    }
-
-    delete board;
-    */
 
     return 0;
 

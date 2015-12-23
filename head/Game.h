@@ -24,6 +24,8 @@ class Game{
 
 		int getBoardSize();
 
+		void switchPlayer(Player *& curr);
+
 		int chooseEasy();
 
 		void hardSingle(sf::RenderWindow & window);
@@ -38,6 +40,7 @@ class Game{
 		int boardSize;
 		Player *p1;
 		Player *p2;
+		Board *board;
 };
 
 #endif

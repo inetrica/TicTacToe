@@ -35,11 +35,19 @@ int Game::getBoardSize(){
 	return boardSize;
 }
 
+void Game::switchPlayer(Player *& curr){
+	if(curr == p1) 
+		curr = p2;
+	else 
+		curr = p1;
+}
+
 int Game::chooseEasy(){
 	std::vector<int> slots;
 	for(int i = 0; i < boardSize; i++){
 		for(int j = 0; j < boardSize; j++){
-			slots.push_back(i*3 + j);
+			if(board->getBlockValueAt(i, j) == Block::Opt_E)
+				slots.push_back(i*3 + j);
 		}
 	}
 	srand(time(NULL));
@@ -57,12 +65,13 @@ void Game::pvp(sf::RenderWindow & window){
 }
 
 void Game::loop(sf::RenderWindow & window){
-	Board * board = new Board(boardSize);
 	Player * currPlayer = p1;
+	board = new Board(boardSize);
 	bool won = false;
 
 	while(window.isOpen() && !won){
 		int row, col;
+		int moveMade = -1;
 		//if(p1Turn || (!p1Turn && !(p2->isAI()))){
 		if(!(currPlayer->isAI())){
 			sf::Event event;
@@ -81,7 +90,7 @@ void Game::loop(sf::RenderWindow & window){
 						col = mouseX/BLOCK_SZ;
 						row = mouseY/BLOCK_SZ;
 						if(row > boardSize || col > boardSize) break;
-						board->setBlock(row, col, currPlayer->getMark());
+						moveMade = board->setBlock(row, col, currPlayer->getMark());
 
 						}
 						break;
@@ -92,10 +101,12 @@ void Game::loop(sf::RenderWindow & window){
 			}
 		} else { //npc option
 			if(_difficulty == Easy){ //"Easy" mode is just random choice
+				std::cout << "Calculate easy" << std::endl;
 				int slot = chooseEasy();
 				row = slot/boardSize;
 				col = slot%boardSize;
-				board->setBlock(row, col, currPlayer->getMark());
+				std::cout << "slot " << slot << " row " << row << "col " << col << std::endl;
+				moveMade = board->setBlock(row, col, currPlayer->getMark());
 			}
 		}
 
@@ -111,7 +122,12 @@ void Game::loop(sf::RenderWindow & window){
 			sleep(1);
 			window.close();
 		}
+		if(moveMade == 0){
+			sleep(1);
+			switchPlayer(currPlayer);
+		}
 	}
 
 	delete board;
+
 }
