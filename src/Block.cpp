@@ -1,11 +1,13 @@
 #include "Block.h"
 #include <iostream>
 
-Block::Block(){
+Block::
+Block(){
 	setVal(Opt_E);
 }
 
-Block::~Block(){
+Block::
+~Block(){
 
 }
 

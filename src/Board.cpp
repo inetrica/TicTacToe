@@ -3,6 +3,7 @@
 
 Board::Board(){
     size = 3;
+    numEmptySlots = size * size;
     board = new Block*[size];
     for(int i = 0; i < size; i++){
         board[i] = new Block[size];
@@ -17,6 +18,7 @@ Board::Board(int size){
         std::cout << "Invalid size when trying to create Board" << std::endl;
     }
     this->size = size;
+    numEmptySlots = size * size;
     board = new Block*[size];
     for(int i = 0; i < size; i++){
         board[i] = new Block[size];
@@ -43,11 +45,16 @@ int Board::setBlock(int row, int col, Block::blockOption val){
     	}
         board[row][col].setVal(val);
     }
+    numEmptySlots--;
     return 0;
 }
 
 Block::blockOption Board::getBlockValueAt(int row, int col){
 	return board[row][col].getVal();
+}
+
+int Board::getNumEmptySlots(){
+	return numEmptySlots;
 }
 
 void Board::draw(sf::RenderWindow & window){

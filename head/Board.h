@@ -15,6 +15,8 @@ class Board
 
 		Block::blockOption getBlockValueAt(int row, int col);
 
+		int getNumEmptySlots();
+
         void draw(sf::RenderWindow & window);
 
 		Block::blockOption checkWinCondition();
@@ -22,6 +24,7 @@ class Board
 	private:
         Block **board;
         int size;
+        int numEmptySlots;
 
 
 };

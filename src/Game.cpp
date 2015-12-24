@@ -75,13 +75,14 @@ void Game::loop(sf::RenderWindow & window){
 		//if(p1Turn || (!p1Turn && !(p2->isAI()))){
 		if(!(currPlayer->isAI())){
 			sf::Event event;
-			while (window.pollEvent(event))
+			while (window.pollEvent(event) /*&& moveMade < 0*/)
 			{
 				switch(event.type){
 					case sf::Event::Closed:
 						window.close();
 						break;
 					case sf::Event::MouseButtonPressed:
+						if(moveMade == 0) break;
 						{
 						int mouseX = event.mouseButton.x;
 						int mouseY = event.mouseButton.y;
@@ -98,6 +99,7 @@ void Game::loop(sf::RenderWindow & window){
 						//do nothing
 						break;
 				}
+				while(window.pollEvent(event));
 			}
 		} else { //npc option
 			if(_difficulty == Easy){ //"Easy" mode is just random choice
@@ -114,11 +116,15 @@ void Game::loop(sf::RenderWindow & window){
 		board->draw(window);
         window.display();
 
-		Block::blockOption won = board->checkWinCondition();
-		if(won != Block::Opt_E){
+		Block::blockOption winner = board->checkWinCondition();
+		if(winner != Block::Opt_E){
 			std::cout << "Congratulations!" << std::endl;
 			std::cout << "Player " << Block::blockOptionToChar(currPlayer->getMark())
 				<< " Wins!" << std::endl;
+			sleep(1);
+			window.close();
+		} else if (board->getNumEmptySlots() <= 0){
+			std::cout << "Stalemate!" << std::endl;
 			sleep(1);
 			window.close();
 		}
