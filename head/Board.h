@@ -26,6 +26,10 @@ class Board
         int size;
         int numEmptySlots;
 
+		Block::blockOption checkDiagonalWC();
+		Block::blockOption checkRowWC();
+		Block::blockOption checkColWC();
+
 
 };
 

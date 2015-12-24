@@ -129,7 +129,7 @@ void Game::loop(sf::RenderWindow & window){
 			window.close();
 		}
 		if(moveMade == 0){
-			sleep(1);
+			sf::sleep(sf::milliseconds(300));
 			switchPlayer(currPlayer);
 		}
 	}

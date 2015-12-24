@@ -12,19 +12,33 @@ Block::
 }
 
 
-int Block::getXpos(){
+int Block::
+getXpos(){
 	return xpos;
 }
 
-int Block::getYpos(){
+int Block::
+getYpos(){
 	return ypos;
 }
 
-void Block::setPos(int x, int y){
+sf::Sprite Block::
+getSprite(){
+	return sprite;
+}
+
+Block::blockOption Block::
+getVal(){
+    return value;
+}
+
+void Block::
+setPos(int x, int y){
 	sprite.setPosition(x, y);
 }
 
-void Block::setVal(blockOption val){
+void Block::
+setVal(blockOption val){
     value = val;
     switch(val){
     	case Opt_E:
@@ -41,25 +55,13 @@ void Block::setVal(blockOption val){
     }
 }
 
-Block::blockOption Block::getVal(){
-    return value;
+char Block::
+blockToChar(){
+    return blockOptionToChar(value);
 }
 
-char Block::blockToChar(){
-    switch(value){
-        case Opt_E:
-            return ' ';
-        case Opt_X:
-            return 'X';
-        case Opt_O:
-            return 'O';
-        default:
-            std::cerr << "Invalid Block Option set" << std::endl;
-            return '?';
-    }
-}
-
-char Block::blockOptionToChar(blockOption opt){
+char Block::
+blockOptionToChar(blockOption opt){
 	switch(opt){
         case Opt_E:
             return ' ';
@@ -71,8 +73,4 @@ char Block::blockOptionToChar(blockOption opt){
             std::cerr << "Invalid Block Option set" << std::endl;
             return '?';
     }
-}
-
-sf::Sprite Block::getSprite(){
-	return sprite;
 }
