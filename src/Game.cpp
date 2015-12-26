@@ -42,7 +42,7 @@ void Game::switchPlayer(Player *& curr){
 		curr = p1;
 }
 
-int Game::chooseEasy(){
+int Game::calculateRandomMove(){
 	std::vector<int> slots;
 	for(int i = 0; i < boardSize; i++){
 		for(int j = 0; j < boardSize; j++){
@@ -54,14 +54,6 @@ int Game::chooseEasy(){
 	int index = rand() % slots.size();
 	
 	return slots.at(index);
-}
-
-void Game::hardSingle(sf::RenderWindow & window){
-	std::cout << "hard" << std::endl;
-}
-
-void Game::pvp(sf::RenderWindow & window){
-	std::cout << "pvp" << std::endl;
 }
 
 void Game::loop(sf::RenderWindow & window){
@@ -104,7 +96,7 @@ void Game::loop(sf::RenderWindow & window){
 		} else { //npc option
 			if(_difficulty == Easy){ //"Easy" mode is just random choice
 				std::cout << "Calculate easy" << std::endl;
-				int slot = chooseEasy();
+				int slot = calculateRandomMove();
 				row = slot/boardSize;
 				col = slot%boardSize;
 				std::cout << "slot " << slot << " row " << row << "col " << col << std::endl;

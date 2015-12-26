@@ -8,11 +8,19 @@
 class Game{
 	public:
 
+		/*
+		 * SinglePlayer = 1 User vs AI
+		 * TwoPlayer = 2 Users
+		 */
 		enum gamemode{
 			SinglePlayer,
 			TwoPlayer
 		};
 
+		/*
+		 * Easy = AI will use easy function to calculate next move (Easy is at random)
+		 * Medium = AI will use medium function to calculate next move (still need to implement, AlphaBeta/MinMax alg?)
+		 */
 		enum difficulty{
 			Easy,
 			Medium
@@ -22,15 +30,17 @@ class Game{
 		Game(gamemode mode, difficulty diff, int sz);
 		~Game();
 
+		//Get size of the board in terms of # of blocks in a row or col
 		int getBoardSize();
 
+		/*
+		 * if curr points to p1, switch it to p2
+		 * if curr points to p2, switch it to p1
+		 */
 		void switchPlayer(Player *& curr);
 
-		int chooseEasy();
-
-		void hardSingle(sf::RenderWindow & window);
-
-		void pvp(sf::RenderWindow & window);
+		//Calculate the next move for AI by choosing randomly from open slots
+		int calculateRandomMove();
 
 		void loop(sf::RenderWindow & window);
 
