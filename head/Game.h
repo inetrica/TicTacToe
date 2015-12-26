@@ -41,7 +41,20 @@ class Game{
 
 		//Calculate the next move for AI by choosing randomly from open slots
 		int calculateRandomMove();
+		//handle user mouse click
+		int handleUserClick(int mouseX, int mouseY, Player* currPlayer);
+		//handle ai move after calculating block with value <slot>
+		//slots are numbered in the following manner
+		// 0 | 1 | 2
+		// 3 | 4 | 5
+		// 6 | 7 | 8 
+		// Therefore, from slot 7, determine row by doing slot/boardSize
+		// 						   determine col by doing slot%boardSize
+		int handleAiMove(int slot, Player* currPlayer);
 
+		/*
+		 * main game loop
+		 */
 		void loop(sf::RenderWindow & window);
 
 	private:
