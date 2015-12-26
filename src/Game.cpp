@@ -79,7 +79,8 @@ calculateRandomMove(){
  * handle user mouse click on board
  * return 0 if move was made successfully, -1 otherwise
  */
-int Game::handleUserClick(int mouseX, int mouseY, Player* currPlayer){
+int Game::
+handleUserClick(int mouseX, int mouseY, Player* currPlayer){
 	//If the mouse position is out of bounds, don't do anything
 	if(mouseX < 0 || mouseX > BLOCK_SZ*boardSize 
 			|| mouseY < 0 || mouseY > BLOCK_SZ*boardSize) return -1;
@@ -93,7 +94,8 @@ int Game::handleUserClick(int mouseX, int mouseY, Player* currPlayer){
  * handle ai desired move
  * return 0 if move was made successfully, -1 otherwise
  */
-int Game::handleAiMove(int slot, Player* currPlayer){
+int Game::
+handleAiMove(int slot, Player* currPlayer){
 	int row = slot/boardSize;
 	int col = slot%boardSize;
 	return board->setBlock(row, col, currPlayer->getMark());
@@ -109,6 +111,10 @@ loop(sf::RenderWindow & window){
 		int moveMade = -1;
 		//if(p1Turn || (!p1Turn && !(p2->isAI()))){
 		if(!(currPlayer->isAI())){
+			/*
+			 * sfml documentation says it is safer to keep pollEvent in one main loop,
+			 * i'll leave it like this then for now
+			 */
 			sf::Event event;
 			while (window.pollEvent(event) /*&& moveMade < 0*/)
 			{
@@ -131,21 +137,22 @@ loop(sf::RenderWindow & window){
 		} else { //ai option
 			if(_difficulty == Easy){ //"Easy" mode is just random choice
 				int slot = calculateRandomMove();
-				/*
-				row = slot/boardSize;
-				col = slot%boardSize;
-				std::cout << "slot " << slot << " row " << row << "col " << col << std::endl;
-				moveMade = board->setBlock(row, col, currPlayer->getMark());
-				*/
 				moveMade = handleAiMove(slot, currPlayer);
 			}
 		}
 
+		/*
+		 * Draw board to the screen
+		 */
         window.clear();
 		board->draw(window);
         window.display();
 
 		Block::blockOption winner = board->checkWinCondition();
+		/*
+		 * if someone won, game ends
+		 * if board fills up, game ends
+		 */
 		if(winner != Block::Opt_E){
 			std::cout << "Congratulations!" << std::endl;
 			std::cout << "Player " << Block::blockOptionToChar(currPlayer->getMark())
@@ -157,6 +164,10 @@ loop(sf::RenderWindow & window){
 			sleep(1);
 			window.close();
 		}
+
+		/*
+		 * if the current player made a move, switch to the other player
+		 */
 		if(moveMade == 0){
 			sf::sleep(sf::milliseconds(300));
 			switchPlayer(currPlayer);

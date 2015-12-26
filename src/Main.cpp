@@ -13,11 +13,12 @@ main(){
 
 	Game game;
 
-	sf::RenderWindow window(sf::VideoMode(BLOCK_SZ*game.getBoardSize(), BLOCK_SZ*game.getBoardSize()), "Tic Tac Toe");
 	if(textures::load() < 0){
 		std::cout << "Error loading textures" << std::endl;
 		exit(-1);
 	}
+
+	sf::RenderWindow window(sf::VideoMode(BLOCK_SZ*game.getBoardSize(), BLOCK_SZ*game.getBoardSize()), "Tic Tac Toe");
 
 	game.loop(window);
 
