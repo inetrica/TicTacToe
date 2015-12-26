@@ -40,11 +40,12 @@ Board::
 
 int Board::
 setBlock(int row, int col, Block::blockOption val){
+	//Make sure row & col are within bounds
     if(size <= row || size <= col || row < 0 || col < 0){
         std::cout << row << ", " << col << " is not a valid position" << std::endl;
         return -1;
     } else {
-    	if(board[row][col].getVal() != Block::Opt_E){
+    	if(board[row][col].getVal() != Block::Opt_E){ //If the block on the board is not empty, don't replace the value already there
     		return -2;
     	}
         board[row][col].setVal(val);
@@ -63,6 +64,9 @@ getNumEmptySlots(){
 	return numEmptySlots;
 }
 
+/*
+ * draw the board, block by block
+ */
 void Board::
 draw(sf::RenderWindow & window){
 	for(int i = 0; i < size; i++){
@@ -94,6 +98,10 @@ checkWinCondition(){
 
 }
 
+/*
+ * check if someone has 3 diagonally, if so return the blockOption which won,
+ * otherwise return the empty blockOption
+ */
 Block::blockOption Board::
 checkDiagonalWC(){
 	bool match = true;
@@ -127,6 +135,10 @@ checkDiagonalWC(){
 	return Block::Opt_E;
 }
 
+/*
+ * Check if someone has 3 in a row, if so, return the blockOption which has 3 in a row,
+ * otherwise return the empty blockOption
+ */
 Block::blockOption Board::
 checkRowWC(){
 	Block::blockOption prev = Block::Opt_E;
@@ -146,6 +158,10 @@ checkRowWC(){
 	return Block::Opt_E;
 }
 
+/*
+ * Check if someone has 3 in a column, if so, return the blockOption which has 3 in a column,
+ * otherwise return the empty blockOption
+ */
 Block::blockOption Board::
 checkColWC(){
 	//bool match = true;
