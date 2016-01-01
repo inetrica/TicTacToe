@@ -101,6 +101,56 @@ handleAiMove(int slot, Player* currPlayer){
 	return board->setBlock(row, col, currPlayer->getMark());
 }
 
+/*
+ * return true if the game is over, either via a player winning
+ * or the board filling up to a draw
+ */
+bool Game::
+isGameOver(Board* board, Player* currPlayer){
+	Block::blockOption winner = board->checkWinCondition();
+	
+	/*
+	* if someone won, game ends
+	* if board fills up, game ends
+	*/
+	if(winner != Block::Opt_E){
+		std::cout << "Congratulations!" << std::endl;
+		std::cout << "Player " 
+			<< Block::blockOptionToChar(currPlayer->getMark())
+			<< " Wins!" << std::endl;
+		return true;
+	} else if (board->getNumEmptySlots() <= 0){
+		std::cout << "Stalemate!" << std::endl;
+		return true;
+	}
+	
+	return false;
+}
+
+void Game::
+finishTurn(sf::RenderWindow & window, Board* board, 
+		Player*& curr, int moveMade){
+	/*
+	* Draw board to the screen
+	*/
+	window.clear();
+	board->draw(window);
+	window.display();
+
+	if(isGameOver(board, curr)){
+		sleep(1);
+		window.close();
+	}
+
+	/*
+	* if the current player made a move, switch to the other player
+	*/
+	if(moveMade == 0){
+		sf::sleep(sf::milliseconds(300));
+		switchPlayer(curr);
+	}
+}
+
 void Game::
 loop(sf::RenderWindow & window){
 	Player * currPlayer = p1;
@@ -141,37 +191,8 @@ loop(sf::RenderWindow & window){
 			}
 		}
 
-		/*
-		 * Draw board to the screen
-		 */
-        window.clear();
-		board->draw(window);
-        window.display();
+		finishTurn(window, board, currPlayer, moveMade);
 
-		Block::blockOption winner = board->checkWinCondition();
-		/*
-		 * if someone won, game ends
-		 * if board fills up, game ends
-		 */
-		if(winner != Block::Opt_E){
-			std::cout << "Congratulations!" << std::endl;
-			std::cout << "Player " << Block::blockOptionToChar(currPlayer->getMark())
-				<< " Wins!" << std::endl;
-			sleep(1);
-			window.close();
-		} else if (board->getNumEmptySlots() <= 0){
-			std::cout << "Stalemate!" << std::endl;
-			sleep(1);
-			window.close();
-		}
-
-		/*
-		 * if the current player made a move, switch to the other player
-		 */
-		if(moveMade == 0){
-			sf::sleep(sf::milliseconds(300));
-			switchPlayer(currPlayer);
-		}
 	}
 
 	delete board;

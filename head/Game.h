@@ -52,6 +52,15 @@ class Game{
 		// 						   determine col by doing slot%boardSize
 		int handleAiMove(int slot, Player* currPlayer);
 
+		bool isGameOver(Board* board, Player* currPlayer);
+
+		/*
+		 * finish the turn by drawing the board,
+		 * check if the game is over, switch the currentPlayer
+		 */
+		void finishTurn(sf::RenderWindow & window, Board* board,
+				Player*& curr, int moveMade);
+
 		/*
 		 * main game loop
 		 */
