@@ -13,6 +13,9 @@ main(){
 
 	Game game;
 
+	/*
+	 * load textures
+	 */
 	if(textures::load() < 0){
 		std::cout << "Error loading textures" << std::endl;
 		exit(-1);
