@@ -5,6 +5,7 @@ void
 testBlockInitEmpty(){
 	Block block;
 	assert("TestBlockInitEmpty", block.getVal() == Block::Opt_E);
+	std::cout << std::endl;
 }
 
 void
@@ -16,6 +17,7 @@ testSettingBlockVal(){
 	assert("TestBlockIsO", block.getVal() == Block::Opt_O);
 	block.setVal(Block::Opt_E);
 	assert("TestBlockIsE", block.getVal() == Block::Opt_E);
+	std::cout << std::endl;
 }
 
 void
@@ -26,6 +28,7 @@ testBlockToChar(){
 			Block::blockOptionToChar(Block::Opt_X) == 'X');
 	assert("Test Opt_O is 'O'",
 			Block::blockOptionToChar(Block::Opt_O) == 'O');
+	std::cout << std::endl;
 }
 
 int 

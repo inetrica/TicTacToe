@@ -6,7 +6,7 @@ SDIR = src
 ODIR = obj
 TDIR = testsrc
 TSCRIPTDIR = testing
-TESTFILES = tBlock.o
+TESTFILES = tBlock.o tBoard.o
 OBJFILES = Main.o Game.o Board.o Block.o Player.o Textures.o
 OBJS = $(patsubst %, $(ODIR)/%, $(OBJFILES))
 TESTOBJS = $(patsubst %, $(TDIR)/%, $(TESTFILES))
@@ -18,7 +18,7 @@ EXE = ttt
 all: $(EXE) $(TESTS)
 
 $(TESTS): $(TESTOBJS)
-	$(CC) $(CFLAGS) -o $@ $< $(OBJS:$(ODIR)/Main.o=) $(SFML)
+	$(CC) $(CFLAGS) -o $@ $(@:$(TSCRIPTDIR)/%=$(TDIR)/%).o $(OBJS:$(ODIR)/Main.o=) $(SFML)
 
 $(EXE): $(OBJS)
 	$(CC) $(CFLAGS) -o $(EXE) $^ $(SFML)
