@@ -30,4 +30,7 @@ $(ODIR)/%.o: $(SDIR)/%.cpp
 	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 clean:
-	rm $(ODIR)/*.o $(TDIR)/*.o $(EXE) $(TESTS)
+	rm $(ODIR)/*.o $(EXE)
+
+cleanTests:
+	rm $(TDIR)/*.o $(TESTS)
