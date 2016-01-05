@@ -1,7 +1,0 @@
-#!/bin/bash
-
-echo TESTING BLOCK
-./tBlock
-
-echo TESTING BOARD
-./tBoard
