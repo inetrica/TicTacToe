@@ -9,8 +9,8 @@
  */
 int 
 assert(std::string testName, bool condition){
-	std::cout << "###############" << testName
-		<< "###############" << std::endl;
+	std::cout << "###############\n" << testName
+		<< "\n###############" << std::endl;
 	if(condition){
 		std::cout << "Passed!" << std::endl;
 	} else {
