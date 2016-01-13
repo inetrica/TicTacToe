@@ -1,23 +1,28 @@
 #include "Player.h"
 
-Player::Player(){
+Player::
+Player(){
 	playerMark = Block::Opt_X;
 	ai = false;
 }
 
-Player::Player(Block::blockOption mark, bool ai){
+Player::
+Player(Block::blockOption mark, bool ai){
 	playerMark = mark;
 	this->ai = ai;
 }
 
-Player::~Player(){
+Player::
+~Player(){
 
 }
 
-Block::blockOption Player::getMark(){
+Block::blockOption Player::
+getMark(){
 	return playerMark;
 }
 
-bool Player::isAI(){
+bool Player::
+isAI(){
 	return ai;
 }

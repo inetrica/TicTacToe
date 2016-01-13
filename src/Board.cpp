@@ -50,8 +50,15 @@ setBlock(int row, int col, Block::blockOption val){
     	}
         board[row][col].setVal(val);
     }
-    numEmptySlots--;
+    if(val != Block::Opt_E)
+    	numEmptySlots--;
+    else
+    	numEmptySlots++;
     return 0;
+}
+
+int Board::getSize(){
+	return size;
 }
 
 Block::blockOption Board::

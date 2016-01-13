@@ -12,6 +12,9 @@ class Board
         Board(int size);
         ~Board();
 
+        //Getters
+        int getSize();
+
 		//assign the blockOption val to the Block currently at the position pointed to 
 		//on the board by the arguments row & col
         int setBlock(int row, int col, Block::blockOption val);
