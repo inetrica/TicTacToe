@@ -34,6 +34,19 @@ class Game{
 		int getBoardSize();
 
 		/*
+		 * main game loop
+		 */
+		void loop(sf::RenderWindow & window);
+
+	private:
+		gamemode _gamemode;
+		difficulty _difficulty;
+		int boardSize;
+		Player *p1;
+		Player *p2;
+		Board *board;
+
+		/*
 		 * if curr points to p1, switch it to p2
 		 * if curr points to p2, switch it to p1
 		 */
@@ -52,8 +65,6 @@ class Game{
 		// 						   determine col by doing slot%boardSize
 		int handleAiMove(int slot, Player* currPlayer);
 
-		bool isGameOver(Board* board, Player* currPlayer);
-
 		/*
 		 * finish the turn by drawing the board,
 		 * check if the game is over, switch the currentPlayer
@@ -61,18 +72,8 @@ class Game{
 		void finishTurn(sf::RenderWindow & window, Board* board,
 				Player*& curr, int moveMade);
 
-		/*
-		 * main game loop
-		 */
-		void loop(sf::RenderWindow & window);
+		bool isGameOver(Board* board, Player* currPlayer);
 
-	private:
-		gamemode _gamemode;
-		difficulty _difficulty;
-		int boardSize;
-		Player *p1;
-		Player *p2;
-		Board *board;
 };
 
 #endif
