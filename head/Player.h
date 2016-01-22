@@ -16,7 +16,7 @@ class Player{
 		 */
 		Block::blockOption getMark();
 
-		int makeMove(sf::RenderWindow & window, GameState *& gs);
+		int makeMove(sf::RenderWindow & window, GameState * gs);
 		/*
 		 * return true if this Player object does not represent a human user
 		 */
@@ -26,11 +26,11 @@ class Player{
 		Block::blockOption playerMark;
 		bool ai;
 
-		int makeAiMove(Board *& board, GameState::Difficulty difficulty);
-		int makeUserMove(sf::RenderWindow & window, Board *& board);
+		int makeAiMove(Board * board, GameState::Difficulty difficulty);
+		int makeUserMove(sf::RenderWindow & window, Board * board);
 
 		//Calculate the next move for AI by choosing randomly from open slots
 		int calculateRandomMove(Board * board);
 		//handle user mouse click
-		int handleUserClick(int mouseX, int mouseY, Board *& board);
+		int handleUserClick(int mouseX, int mouseY, Board * board);
 };

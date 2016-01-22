@@ -37,7 +37,7 @@ class Game{
 		 * finish the turn by drawing the board,
 		 * check if the game is over, switch the currentPlayer
 		 */
-		void finishTurn(sf::RenderWindow & window, Board *& board,
+		void finishTurn(sf::RenderWindow & window, Board * board,
 				Player*& curr, int moveMade);
 
 		bool isGameOver(Board* board, Player* currPlayer);

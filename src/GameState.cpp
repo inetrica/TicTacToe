@@ -29,7 +29,7 @@ getDifficulty(){
 	return difficulty;
 }
 
-Board *& GameState::
+Board * GameState::
 getBoard(){
 	return board;
 }

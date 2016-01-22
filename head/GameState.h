@@ -30,7 +30,7 @@ class GameState{
 
 		GameMode getGameMode();
 		Difficulty getDifficulty();
-		Board *& getBoard();
+		Board * getBoard();
 
 	private:
 		GameMode gamemode;

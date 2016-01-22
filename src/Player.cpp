@@ -28,7 +28,7 @@ isAI(){
 }
 
 int Player::
-makeMove(sf::RenderWindow & window, /*Board *& board,*/ GameState *& gs){
+makeMove(sf::RenderWindow & window, /*Board *& board,*/ GameState * gs){
 	if(ai){
 		return makeAiMove(gs->getBoard(), gs->getDifficulty());
 	} else {
@@ -45,7 +45,7 @@ makeMove(sf::RenderWindow & window, /*Board *& board,*/ GameState *& gs){
 // 						   determine col by doing slot%boardSize
 // Return 0 if succesful, -1 if unsuccessful
 int Player::
-makeAiMove(Board *& board, GameState::Difficulty difficulty){
+makeAiMove(Board * board, GameState::Difficulty difficulty){
 	int slot;
 	if(difficulty == GameState::Easy){
 		slot = calculateRandomMove(board);
@@ -61,7 +61,7 @@ makeAiMove(Board *& board, GameState::Difficulty difficulty){
 //handle user mouse click
 //return 0 if successful, -1 if unsuccessful
 int Player::
-makeUserMove(sf::RenderWindow & window, Board *& board){
+makeUserMove(sf::RenderWindow & window, Board * board){
 
 	sf::Event event;
 	int moveMade = -1;
@@ -91,7 +91,7 @@ makeUserMove(sf::RenderWindow & window, Board *& board){
 }
 
 int Player::
-handleUserClick(int mouseX, int mouseY, Board *& board){
+handleUserClick(int mouseX, int mouseY, Board * board){
 	int boardSize = board->getSize();
 	//If the mouse position is out of bounds, don't do anything
 	if(mouseX < 0 || mouseX > BLOCK_SZ*boardSize 

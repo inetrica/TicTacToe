@@ -77,14 +77,16 @@ isGameOver(Board* board, Player* currPlayer){
 }
 
 void Game::
-finishTurn(sf::RenderWindow & window, Board *& board, 
+finishTurn(sf::RenderWindow & window, Board * board, 
 		Player*& curr, int moveMade){
 	/*
 	* Draw board to the screen
 	*/
+	/*
 	window.clear();
 	board->draw(window);
 	window.display();
+	*/
 
 	if(isGameOver(board, curr)){
 		sleep(1);
@@ -109,7 +111,12 @@ loop(sf::RenderWindow & window){
 
 		moveMade = currPlayer->makeMove(window, state);
 
+		window.clear();
+		state->getBoard()->draw(window);
+		window.display();
+
 		finishTurn(window, state->getBoard(), currPlayer, moveMade);
+
 	}
 
 }
