@@ -65,7 +65,7 @@ makeUserMove(sf::RenderWindow & window, Board *& board){
 
 	sf::Event event;
 	int moveMade = -1;
-	while(moveMade < 0){
+	while(moveMade < 0 && window.isOpen()){
 		while (window.pollEvent(event) /*&& moveMade < 0*/)
 		{
 			switch(event.type){
