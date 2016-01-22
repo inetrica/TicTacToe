@@ -103,17 +103,19 @@ finishTurn(sf::RenderWindow & window, Board * board,
 }
 
 void Game::
-loop(sf::RenderWindow & window){
+loop(/*sf::RenderWindow & window*/){
 	Player * currPlayer = p1;
 	int moveMade = -1;
 
+	sf::RenderWindow window(sf::VideoMode(BLOCK_SZ*getBoardSize(), BLOCK_SZ*getBoardSize()), "Tic Tac Toe");
+	state->drawBoard(window);
+
 	while(window.isOpen()){
+		moveMade = -1;
 
 		moveMade = currPlayer->makeMove(window, state);
 
-		window.clear();
-		state->getBoard()->draw(window);
-		window.display();
+		state->drawBoard(window);
 
 		finishTurn(window, state->getBoard(), currPlayer, moveMade);
 

@@ -11,7 +11,7 @@
 int
 main(){
 
-	Game game;
+	//Game * game = new Game();
 
 	/*
 	 * load textures
@@ -21,10 +21,13 @@ main(){
 		exit(-1);
 	}
 
-	sf::RenderWindow window(sf::VideoMode(BLOCK_SZ*game.getBoardSize(), BLOCK_SZ*game.getBoardSize()), "Tic Tac Toe");
+	Game * game = new Game();
 
-	game.loop(window);
+	//sf::RenderWindow window(sf::VideoMode(BLOCK_SZ*game->getBoardSize(), BLOCK_SZ*game->getBoardSize()), "Tic Tac Toe");
 
+	game->loop(/*window*/);
+
+	delete game;
 
     return 0;
 

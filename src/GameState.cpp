@@ -33,3 +33,9 @@ Board * GameState::
 getBoard(){
 	return board;
 }
+
+void GameState::drawBoard(sf::RenderWindow & window){
+	window.clear();
+	board->draw(window);
+	window.display();
+}

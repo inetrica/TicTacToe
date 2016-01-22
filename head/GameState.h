@@ -32,6 +32,8 @@ class GameState{
 		Difficulty getDifficulty();
 		Board * getBoard();
 
+		void drawBoard(sf::RenderWindow & window);
+
 	private:
 		GameMode gamemode;
 		Difficulty difficulty;

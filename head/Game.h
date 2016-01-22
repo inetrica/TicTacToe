@@ -18,7 +18,7 @@ class Game{
 		/*
 		 * main game loop
 		 */
-		void loop(sf::RenderWindow & window);
+		void loop(/*sf::RenderWindow & window*/);
 
 		int getBoardSize();
 
