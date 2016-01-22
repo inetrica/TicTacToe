@@ -1,5 +1,8 @@
 
-#include "Block.h"
+#include "Board.h"
+#include "GameState.h"
+#include <SFML/Graphics.hpp>
+
 
 class Player{
 	public:
@@ -12,6 +15,8 @@ class Player{
 		 * (is he using X or O on the board)
 		 */
 		Block::blockOption getMark();
+
+		int makeMove(sf::RenderWindow & window, GameState * gs);
 		/*
 		 * return true if this Player object does not represent a human user
 		 */
@@ -20,4 +25,12 @@ class Player{
 	private:
 		Block::blockOption playerMark;
 		bool ai;
+
+		int makeAiMove(Board * board, GameState::Difficulty difficulty);
+		int makeUserMove(sf::RenderWindow & window, Board * board);
+
+		//Calculate the next move for AI by choosing randomly from open slots
+		int calculateRandomMove(Board * board);
+		//handle user mouse click
+		int handleUserClick(int mouseX, int mouseY, Board * board);
 };
