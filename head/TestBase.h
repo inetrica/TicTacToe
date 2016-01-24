@@ -3,6 +3,9 @@
 
 #include <iostream>
 #include <string>
+#include <SFML/Graphics.hpp>
+
+#define BLOCK_PIXEL_SZ 70
 
 /*
  * custom assert

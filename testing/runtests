@@ -5,3 +5,12 @@ echo TESTING BLOCK
 
 echo TESTING BOARD
 ./tBoard
+
+echo TESTING GAMESTATE
+./tGameState
+
+echo TESTING GAME
+./tGame
+
+echo TESTING PLAYER
+./tPlayer
