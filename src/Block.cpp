@@ -23,7 +23,7 @@ getYpos() const {
 }
 
 sf::Sprite Block::
-getSprite(){
+getSprite() const {
 	return sprite;
 }
 

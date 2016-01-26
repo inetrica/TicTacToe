@@ -15,7 +15,7 @@ Board(){
 }
 
 Board::
-Board(int size){
+Board(const int size){
     if(size <= 0){
         std::cout << "Invalid size when trying to create Board" << std::endl;
     }
@@ -38,8 +38,8 @@ Board::
     delete[] board;
 }
 
-int Board::
-setBlock(int row, int col, Block::blockOption val){
+int const Board::
+setBlock(const int row, const int col, const Block::blockOption val){
 	//Make sure row & col are within bounds
     if(size <= row || size <= col || row < 0 || col < 0){
         std::cout << row << ", " << col << " is not a valid position" << std::endl;
@@ -57,17 +57,17 @@ setBlock(int row, int col, Block::blockOption val){
     return 0;
 }
 
-int Board::getSize(){
+int Board::getSize() const {
 	return size;
 }
 
 Block::blockOption Board::
-getBlockValueAt(int row, int col){
+getBlockValueAt(const int row, const int col) const {
 	return board[row][col].getVal();
 }
 
 int Board::
-getNumEmptySlots(){
+getNumEmptySlots() const {
 	return numEmptySlots;
 }
 
@@ -75,7 +75,7 @@ getNumEmptySlots(){
  * draw the board, block by block
  */
 void Board::
-draw(sf::RenderWindow & window){
+draw(sf::RenderWindow & window) const {
 	for(int i = 0; i < size; i++){
 		for(int j = 0; j < size; j++){
 			window.draw(board[i][j].getSprite());
@@ -87,7 +87,7 @@ draw(sf::RenderWindow & window){
  * return Opt_E if nobody's won, otherwise return the winner
  */
 Block::blockOption Board::
-checkWinCondition(){
+checkWinCondition() const {
 	Block::blockOption checkResult = Block::Opt_E;
 
 	//Check Diagonals
@@ -110,7 +110,7 @@ checkWinCondition(){
  * otherwise return the empty blockOption
  */
 Block::blockOption Board::
-checkDiagonalWC(){
+checkDiagonalWC() const {
 	bool match = true;
 	Block::blockOption prev = Block::Opt_E;
 
@@ -147,7 +147,7 @@ checkDiagonalWC(){
  * otherwise return the empty blockOption
  */
 Block::blockOption Board::
-checkRowWC(){
+checkRowWC() const {
 	Block::blockOption prev = Block::Opt_E;
 
 	for(int i = 0; i < size; i++){
@@ -170,7 +170,7 @@ checkRowWC(){
  * otherwise return the empty blockOption
  */
 Block::blockOption Board::
-checkColWC(){
+checkColWC() const {
 	//bool match = true;
 	Block::blockOption prev = Block::Opt_E;
 

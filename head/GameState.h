@@ -26,16 +26,16 @@ class GameState{
 		};
 
 		GameState();
-		GameState(Difficulty d, GameMode gm, int sz);
+		GameState(const Difficulty d, const GameMode gm, const int sz);
 		~GameState();
 
-		GameMode getGameMode();
-		Difficulty getDifficulty();
-		Board * getBoard();
+		GameMode getGameMode() const;
+		Difficulty getDifficulty() const;
+		Board * getBoard() const;
 
-		std::vector<int> getEmptySlots();
+		std::vector<int> getEmptySlots() const;
 
-		void drawBoard(sf::RenderWindow & window);
+		void drawBoard(sf::RenderWindow & window) const;
 
 	private:
 		GameMode gamemode;

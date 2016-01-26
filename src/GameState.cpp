@@ -8,7 +8,7 @@ GameState(){
 }
 
 GameState::
-GameState(Difficulty d, GameMode gm, int sz){
+GameState(const Difficulty d, const GameMode gm, const int sz){
 	gamemode = gm;
 	difficulty = d;
 	board = new Board(sz);
@@ -20,22 +20,22 @@ GameState::
 }
 
 GameState::GameMode GameState::
-getGameMode(){
+getGameMode() const {
 	return gamemode;
 }
 
 GameState::Difficulty GameState::
-getDifficulty(){
+getDifficulty() const {
 	return difficulty;
 }
 
 Board * GameState::
-getBoard(){
+getBoard() const {
 	return board;
 }
 
 std::vector<int> GameState::
-getEmptySlots(){
+getEmptySlots() const {
 	std::vector<int> slots;
 	int boardSize = board->getSize();
 	for(int i = 0; i < boardSize; i++){
@@ -47,7 +47,7 @@ getEmptySlots(){
 	return slots;
 }
 
-void GameState::drawBoard(sf::RenderWindow & window){
+void GameState::drawBoard(sf::RenderWindow & window) const {
 	window.clear();
 	board->draw(window);
 	window.display();

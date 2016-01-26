@@ -44,7 +44,7 @@ class Block
 		/*
 		 * get the SFML sprite for this block
 		 */
-		sf::Sprite getSprite();
+		sf::Sprite getSprite() const;
 
     private:
         blockOption value;
