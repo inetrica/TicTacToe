@@ -12,13 +12,13 @@ Block::
 }
 
 
-int Block::
-getXpos(){
+int const Block::
+getXpos() const {
 	return xpos;
 }
 
-int Block::
-getYpos(){
+int const Block::
+getYpos() const {
 	return ypos;
 }
 
@@ -28,17 +28,17 @@ getSprite(){
 }
 
 Block::blockOption Block::
-getVal(){
+getVal() {
     return value;
 }
 
 void Block::
-setPos(int x, int y){
+setPos(const int x, const int y){
 	sprite.setPosition(x, y);
 }
 
 void Block::
-setVal(blockOption val){
+setVal(const blockOption val){
     value = val;
     switch(val){
     	case Opt_E:
@@ -55,13 +55,13 @@ setVal(blockOption val){
     }
 }
 
-char Block::
-blockToChar(){
+char const Block::
+blockToChar() const {
     return blockOptionToChar(value);
 }
 
 char Block::
-blockOptionToChar(blockOption opt){
+blockOptionToChar(const blockOption opt) {
 	switch(opt){
         case Opt_E:
             return ' ';

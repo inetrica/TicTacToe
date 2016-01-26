@@ -27,19 +27,19 @@ class Block
         ~Block();
 
 		//X and Y positions for the sprite
-        int getXpos();
-        int getYpos();
-        void setPos(int x, int y);
+        int const getXpos() const;
+        int const getYpos() const;
+        void setPos(const int x, const int y);
 
 		//set the value to X or O (or Empty)
-        void setVal(blockOption val);
+        void setVal(const blockOption val);
         blockOption getVal();
 
 		//Convert the value of this block to a character
-        char blockToChar();
+        char const blockToChar() const;
 
         //Convert the passed argument (blockOption) to a character
-        static char blockOptionToChar(blockOption opt);
+        static char blockOptionToChar(const blockOption opt);
 		
 		/*
 		 * get the SFML sprite for this block
