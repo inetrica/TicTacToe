@@ -34,6 +34,19 @@ getBoard(){
 	return board;
 }
 
+std::vector<int> GameState::
+getEmptySlots(){
+	std::vector<int> slots;
+	int boardSize = board->getSize();
+	for(int i = 0; i < boardSize; i++){
+		for(int j = 0; j < boardSize; j++){
+			if(board->getBlockValueAt(i, j) == Block::Opt_E)
+				slots.push_back(i*3 + j);
+		}
+	}
+	return slots;
+}
+
 void GameState::drawBoard(sf::RenderWindow & window){
 	window.clear();
 	board->draw(window);

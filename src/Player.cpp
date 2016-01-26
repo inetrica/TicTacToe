@@ -30,7 +30,7 @@ isAI(){
 int Player::
 makeMove(sf::RenderWindow & window, /*Board *& board,*/ GameState * gs){
 	if(ai){
-		return makeAiMove(gs->getBoard(), gs->getDifficulty());
+		return makeAiMove(/*gs->getBoard(), gs->getDifficulty()*/gs);
 	} else {
 		return makeUserMove(window, gs->getBoard());
 	}
@@ -45,17 +45,23 @@ makeMove(sf::RenderWindow & window, /*Board *& board,*/ GameState * gs){
 // 						   determine col by doing slot%boardSize
 // Return 0 if succesful, -1 if unsuccessful
 int Player::
-makeAiMove(Board * board, GameState::Difficulty difficulty){
+makeAiMove(/*Board * board, GameState::Difficulty difficulty*/GameState *& gs){
+	
+	//AI needs to first know where he is allowed to place a mark
+	//first
+	std::vector<int> empty_slots = gs->getEmptySlots();
+	GameState::Difficulty difficulty = gs->getDifficulty();
+
 	int slot;
 	if(difficulty == GameState::Easy){
-		slot = calculateRandomMove(board);
+		slot = calculateRandomMove(empty_slots);
 	} else {//TODO obviousy redundant, eventually after implementing Medium/Hard modes, update this
-		slot = calculateRandomMove(board);
+		slot = calculateRandomMove(empty_slots);
 	}
-	int boardSize = board->getSize();
+	int boardSize = gs->getBoard()->getSize();
 	int row = slot/boardSize;
 	int col = slot%boardSize;
-	return board->setBlock(row, col, playerMark);
+	return gs->getBoard()->setBlock(row, col, playerMark);
 }
 
 //handle user mouse click
@@ -104,20 +110,7 @@ handleUserClick(int mouseX, int mouseY, Board * board){
 
 //Calculate the next move for AI by choosing randomly from open slots
 int Player::
-calculateRandomMove(Board * board){
-
-	int boardSize = board->getSize();
-	/*
-	 * go through board and add empty blocks to this vector
-	 */
-	std::vector<int> slots;
-	for(int i = 0; i < boardSize; i++){
-		for(int j = 0; j < boardSize; j++){
-			if(board->getBlockValueAt(i, j) == Block::Opt_E)
-				slots.push_back(i*3 + j);
-		}
-	}
-
+calculateRandomMove(std::vector<int> slots){
 	/*
 	 * choose one of the blocks from the vector at random
 	 */

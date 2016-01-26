@@ -2,6 +2,7 @@
 #define GAMESTATE_H
 
 #include "Board.h"
+#include <vector>
 
 class GameState{
 	public:
@@ -31,6 +32,8 @@ class GameState{
 		GameMode getGameMode();
 		Difficulty getDifficulty();
 		Board * getBoard();
+
+		std::vector<int> getEmptySlots();
 
 		void drawBoard(sf::RenderWindow & window);
 

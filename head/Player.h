@@ -26,11 +26,11 @@ class Player{
 		Block::blockOption playerMark;
 		bool ai;
 
-		int makeAiMove(Board * board, GameState::Difficulty difficulty);
+		int makeAiMove(/*Board * board, GameState::Difficulty difficulty*/GameState *& gs);
 		int makeUserMove(sf::RenderWindow & window, Board * board);
 
 		//Calculate the next move for AI by choosing randomly from open slots
-		int calculateRandomMove(Board * board);
+		int calculateRandomMove(std::vector<int> slots);
 		//handle user mouse click
 		int handleUserClick(int mouseX, int mouseY, Board * board);
 };
