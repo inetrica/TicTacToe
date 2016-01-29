@@ -33,4 +33,6 @@ class Player{
 		int calculateRandomMove(std::vector<int> slots) const;
 		//handle user mouse click
 		int handleUserClick(int mouseX, int mouseY, Board * board) const;
+
+		int calculateMinMax(const Board * board, Block::blockOption mark);
 };

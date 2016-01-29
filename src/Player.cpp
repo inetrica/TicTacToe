@@ -119,3 +119,8 @@ calculateRandomMove(std::vector<int> slots) const{
 	
 	return slots.at(index);
 }
+
+int Player::
+calculateMinMax(const Board * board, Block::blockOption mark){
+
+}
