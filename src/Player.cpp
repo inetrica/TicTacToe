@@ -18,17 +18,17 @@ Player::
 }
 
 Block::blockOption Player::
-getMark(){
+getMark() const {
 	return playerMark;
 }
 
 bool Player::
-isAI(){
+isAI() const{
 	return ai;
 }
 
 int Player::
-makeMove(sf::RenderWindow & window, /*Board *& board,*/ GameState * gs){
+makeMove(sf::RenderWindow & window, /*Board *& board,*/ GameState * gs) const{
 	if(ai){
 		return makeAiMove(/*gs->getBoard(), gs->getDifficulty()*/gs);
 	} else {
@@ -45,7 +45,7 @@ makeMove(sf::RenderWindow & window, /*Board *& board,*/ GameState * gs){
 // 						   determine col by doing slot%boardSize
 // Return 0 if succesful, -1 if unsuccessful
 int Player::
-makeAiMove(/*Board * board, GameState::Difficulty difficulty*/GameState *& gs){
+makeAiMove(/*Board * board, GameState::Difficulty difficulty*/GameState *& gs) const{
 	
 	//AI needs to first know where he is allowed to place a mark
 	//first
@@ -67,7 +67,7 @@ makeAiMove(/*Board * board, GameState::Difficulty difficulty*/GameState *& gs){
 //handle user mouse click
 //return 0 if successful, -1 if unsuccessful
 int Player::
-makeUserMove(sf::RenderWindow & window, Board * board){
+makeUserMove(sf::RenderWindow & window, Board * board) const{
 
 	sf::Event event;
 	int moveMade = -1;
@@ -97,7 +97,7 @@ makeUserMove(sf::RenderWindow & window, Board * board){
 }
 
 int Player::
-handleUserClick(int mouseX, int mouseY, Board * board){
+handleUserClick(int mouseX, int mouseY, Board * board) const{
 	int boardSize = board->getSize();
 	//If the mouse position is out of bounds, don't do anything
 	if(mouseX < 0 || mouseX > BLOCK_SZ*boardSize 
@@ -110,7 +110,7 @@ handleUserClick(int mouseX, int mouseY, Board * board){
 
 //Calculate the next move for AI by choosing randomly from open slots
 int Player::
-calculateRandomMove(std::vector<int> slots){
+calculateRandomMove(std::vector<int> slots) const{
 	/*
 	 * choose one of the blocks from the vector at random
 	 */

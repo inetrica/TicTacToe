@@ -37,7 +37,7 @@ Game::
 }
 
 int Game::
-getBoardSize(){
+getBoardSize() const {
 	return state->getBoard()->getSize();
 }
 
@@ -54,7 +54,7 @@ switchPlayer(Player *& curr){
  * or the board filling up to a draw
  */
 bool Game::
-isGameOver(Board* board, Player* currPlayer){
+isGameOver(const Board* board, const Player* currPlayer) const{
 	Block::blockOption winner = board->checkWinCondition();
 	
 	/*
@@ -75,17 +75,17 @@ isGameOver(Board* board, Player* currPlayer){
 	return false;
 }
 
+/*
+ * First checks if the game is over. if it is, obviously someone
+ * made a move, since the last time we checked, the game wasn't over
+ * if the game is over, close the window
+ *
+ * Checks to see if the current player made a move. If he did,
+ * end his turn, switch players
+ */
 void Game::
-finishTurn(sf::RenderWindow & window, Board * board, 
-		Player*& curr, int moveMade){
-	/*
-	* Draw board to the screen
-	*/
-	/*
-	window.clear();
-	board->draw(window);
-	window.display();
-	*/
+finishTurn(sf::RenderWindow & window, const Board * board, 
+		Player*& curr, const int moveMade){
 
 	if(isGameOver(board, curr)){
 		sleep(1);
@@ -102,18 +102,24 @@ finishTurn(sf::RenderWindow & window, Board * board,
 }
 
 void Game::
-loop(/*sf::RenderWindow & window*/){
+loop(){
 	Player * currPlayer = p1;
 	int moveMade = -1;
 
+	/*
+	 * start by grabbing the window, then drawing it
+	 */
 	sf::RenderWindow window(sf::VideoMode(BLOCK_SZ*getBoardSize(), BLOCK_SZ*getBoardSize()), "Tic Tac Toe");
 	state->drawBoard(window);
 
 	while(window.isOpen()){
 		moveMade = -1;
 
+		//Get the current player's move. if a move was made successfully,
+		//moveMade will == 0
 		moveMade = currPlayer->makeMove(window, state);
 
+		// redraw the board on each loop cycle
 		state->drawBoard(window);
 
 		finishTurn(window, state->getBoard(), currPlayer, moveMade);

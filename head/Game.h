@@ -18,9 +18,9 @@ class Game{
 		/*
 		 * main game loop
 		 */
-		void loop(/*sf::RenderWindow & window*/);
+		void loop();
 
-		int getBoardSize();
+		int getBoardSize() const;
 
 	private:
 		GameState * state;
@@ -34,13 +34,12 @@ class Game{
 		void switchPlayer(Player *& curr);
 
 		/*
-		 * finish the turn by drawing the board,
 		 * check if the game is over, switch the currentPlayer
 		 */
-		void finishTurn(sf::RenderWindow & window, Board * board,
-				Player*& curr, int moveMade);
+		void finishTurn(sf::RenderWindow & window, const Board * board,
+				Player*& curr, const int moveMade);
 
-		bool isGameOver(Board* board, Player* currPlayer);
+		bool isGameOver(const Board* board, const Player* currPlayer) const;
 
 };
 
