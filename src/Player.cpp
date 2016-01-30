@@ -56,7 +56,7 @@ makeAiMove(/*Board * board, GameState::Difficulty difficulty*/GameState *& gs) c
 	if(difficulty == GameState::Easy){
 		slot = calculateRandomMove(empty_slots);
 	} else {//TODO obviousy redundant, eventually after implementing Medium/Hard modes, update this
-		slot = calculateRandomMove(empty_slots);
+		slot = calculateMinMax(gs->getBoard(), playerMark);
 	}
 	int boardSize = gs->getBoard()->getSize();
 	int row = slot/boardSize;
@@ -121,6 +121,8 @@ calculateRandomMove(std::vector<int> slots) const{
 }
 
 int Player::
-calculateMinMax(const Board * board, Block::blockOption mark){
-
+calculateMinMax(const Board * board, Block::blockOption mark) const{
+	StateEvaluator se(board);
+	se.calcBestMove(mark, 3);
+	return se.getBestMove();
 }

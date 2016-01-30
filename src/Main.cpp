@@ -21,7 +21,8 @@ main(){
 		exit(-1);
 	}
 
-	Game * game = new Game();
+	GameState * gs = new GameState(GameState::Medium, GameState::SinglePlayer, 3);
+	Game * game = new Game(gs);
 
 	//sf::RenderWindow window(sf::VideoMode(BLOCK_SZ*game->getBoardSize(), BLOCK_SZ*game->getBoardSize()), "Tic Tac Toe");
 

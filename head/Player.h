@@ -1,6 +1,7 @@
 
 #include "Board.h"
 #include "GameState.h"
+#include "StateEvaluator.h"
 #include <SFML/Graphics.hpp>
 
 
@@ -34,5 +35,5 @@ class Player{
 		//handle user mouse click
 		int handleUserClick(int mouseX, int mouseY, Board * board) const;
 
-		int calculateMinMax(const Board * board, Block::blockOption mark);
+		int calculateMinMax(const Board * board, Block::blockOption mark) const;
 };
