@@ -60,7 +60,7 @@ getBestMove() const{
 
 void StateEvaluator::
 calcBestMove(const Block::blockOption playerMark, int depth){
-	min_value(init_state, playerMark, depth);
+	max_value(init_state, switchMark(playerMark), depth);
 }
 
 Block::blockOption ** StateEvaluator::
@@ -180,7 +180,6 @@ evaluate(Block::blockOption ** state, Block::blockOption mark){
 	options += countRows(state, mark);
 	options += countCols(state, mark);
 	options += countDiags(state, mark);
-	bestMove = options;
 	return options;
 }
 

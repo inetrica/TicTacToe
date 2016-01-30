@@ -27,7 +27,7 @@ $(TDIR)/%.o: $(TDIR)/%.cpp
 	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 $(ODIR)/%.o: $(SDIR)/%.cpp
-	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@ -g
 
 clean:
 	rm $(ODIR)/*.o $(EXE)

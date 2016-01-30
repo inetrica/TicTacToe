@@ -57,6 +57,9 @@ makeAiMove(/*Board * board, GameState::Difficulty difficulty*/GameState *& gs) c
 		slot = calculateRandomMove(empty_slots);
 	} else {//TODO obviousy redundant, eventually after implementing Medium/Hard modes, update this
 		slot = calculateMinMax(gs->getBoard(), playerMark);
+		if(slot < 0){
+			slot = calculateRandomMove(empty_slots);
+		}
 	}
 	int boardSize = gs->getBoard()->getSize();
 	int row = slot/boardSize;
