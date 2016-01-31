@@ -48,7 +48,5 @@ getEmptySlots() const {
 }
 
 void GameState::drawBoard(sf::RenderWindow & window) const {
-	window.clear();
 	board->draw(window);
-	window.display();
 }

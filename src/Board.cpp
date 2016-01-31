@@ -76,11 +76,13 @@ getNumEmptySlots() const {
  */
 void Board::
 draw(sf::RenderWindow & window) const {
+	window.clear();
 	for(int i = 0; i < size; i++){
 		for(int j = 0; j < size; j++){
 			window.draw(board[i][j].getSprite());
 		}
 	}
+	window.display();
 }
 
 /*

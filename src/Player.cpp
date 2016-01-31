@@ -77,6 +77,7 @@ makeUserMove(sf::RenderWindow & window, Board * board) const{
 	while(moveMade < 0 && window.isOpen()){
 		while (window.pollEvent(event) /*&& moveMade < 0*/)
 		{
+			board->draw(window);
 			switch(event.type){
 				case sf::Event::Closed:
 					window.close();
