@@ -171,6 +171,8 @@ getChildren(Block::blockOption ** _state){
 			}
 		}
 	}
+	std::srand (unsigned (std::time(0)));
+	std::random_shuffle(children.begin(), children.end());
 	return children;
 }
 

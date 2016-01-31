@@ -3,6 +3,10 @@
 
 #include "Board.h"
 
+#include <algorithm>
+#include <ctime>
+#include <cstdlib>
+
 #define MAX_ALPHA 8
 #define MIN_BETA -8
 
