@@ -2,7 +2,7 @@
 
 StateEvaluator::
 StateEvaluator(){
-	 size = 3;
+	size = 3;
 	init_state = new Block::blockOption*[size];
 	for(int i = 0; i < size; i++){
 		init_state[i] = new Block::blockOption[size];
@@ -11,6 +11,7 @@ StateEvaluator(){
 		}
 	}
 	bestMove = -1;
+	setupHeuristic();
 }
 
 StateEvaluator::
@@ -24,25 +25,8 @@ StateEvaluator(const Board * board){
 		}
 	}
 	bestMove = -1;
+	setupHeuristic();
 }
-
-/*
-StateEvaluator::
-StateEvaluator(Block::blockOption ** state, int move, Block::blockOption mark, const int sz){
-	size = sz;
-	init_state = new Block::blockOption*[size];
-	for(int i = 0; i < size; i++){
-		init_state[i] = new Block::blockOption[size];
-		for(int j = 0; j < size; j++){
-			init_state[i][j] = state[i][j];
-		}
-	}
-	int row = move/size;
-	int col = move%size;
-	_state[row][col] = mark;
-	bestMove = -1;
-}
-*/
 
 StateEvaluator::
 ~StateEvaluator(){
@@ -61,6 +45,14 @@ getBestMove() const{
 void StateEvaluator::
 calcBestMove(const Block::blockOption playerMark, int depth){
 	max_value(init_state, switchMark(playerMark), depth);
+}
+
+void StateEvaluator::
+setupHeuristic(){
+	heuristic[0] = 0;
+	heuristic[1] = 10;
+	heuristic[2] = 100;
+	heuristic[3] = 1000;
 }
 
 Block::blockOption ** StateEvaluator::
@@ -92,13 +84,14 @@ max_value(Block::blockOption ** state, const Block::blockOption playerMark, int 
 	 * no more possible moves, then return -1
 	 */
 	if(children.size() == 0){
-		bestMove = -1;
-		return MIN_BETA;
+		//bestMove = -1;
+		//return MIN_BETA;
+		return evaluate(state, playerMark);//*-1
 	} else if (depth == 0){
 		/*
 		 * evaluate at the current state based on heuristic
 		 */
-		bestMove = -1;
+		//bestMove = -1;
 		return evaluate(state, playerMark);
 	} else {
 		//initiate alpha to be ridiculously low
@@ -115,9 +108,11 @@ max_value(Block::blockOption ** state, const Block::blockOption playerMark, int 
 				bestMove = children[i];
 			}
 
+			/*
 			if(alpha >= MAX_ALPHA){
 				break;
 			}
+			*/
 		}
 		return alpha;
 	}
@@ -127,16 +122,17 @@ int StateEvaluator::
 min_value(Block::blockOption ** state, const Block::blockOption playerMark, int depth){
 	std::vector<int> children = getChildren(state);
 	/*
-	 * no more possible moves, then return -1
+	 * no more possible moves, then return 1
 	 */
 	if(children.size() == 0){
-		bestMove = -1;
-		return MAX_ALPHA;
+		//bestMove = -1;
+		//return MAX_ALPHA;
+		return evaluate(state, playerMark);
 	} else if (depth == 0){
 		/*
 		 * evaluate at the current state based on heuristic
 		 */
-		bestMove = -1;
+		//bestMove = -1;
 		return evaluate(state, playerMark);
 	} else {
 		//initiate alpha to be ridiculously low
@@ -153,9 +149,11 @@ min_value(Block::blockOption ** state, const Block::blockOption playerMark, int 
 				bestMove = children[i];
 			}
 
+			/*
 			if(beta <= MIN_BETA){
 				break;
 			}
+			*/
 		}
 		return beta;
 	}
@@ -177,60 +175,89 @@ getChildren(Block::blockOption ** _state){
 }
 
 int StateEvaluator::
-evaluate(Block::blockOption ** state, Block::blockOption mark){
-	int options = 0;
-	options += countRows(state, mark);
-	options += countCols(state, mark);
-	options += countDiags(state, mark);
-	return options;
+evaluate(Block::blockOption ** state, const Block::blockOption mark){
+	int sum = 0;
+	for(int i = 0; i < size; i++){
+		int row = evaluateRow(state, i, mark);
+		int col = evaluateCol(state, i, mark);
+		sum += row;
+		sum += col;
+		/*
+		if(row == MAX_ALPHA || row == MIN_BETA)
+			return row;
+		if(col == MAX_ALPHA || col == MIN_BETA)
+			return col;
+		*/
+	}
+	int ldiag = evaluateLeftDiag(state, mark);
+	int rdiag = evaluateRightDiag(state, mark);
+	sum += ldiag;
+	sum += rdiag;
+
+	/*
+	if(ldiag == MAX_ALPHA || ldiag == MIN_BETA) return ldiag;
+	if(rdiag == MAX_ALPHA || rdiag == MIN_BETA) return rdiag;
+	*/
+
+	std::cout << sum << std::endl;
+	return sum;
 }
 
 int StateEvaluator::
-countRows(Block::blockOption ** state, Block::blockOption mark){
-	int rows = size;
+evaluateRow(Block::blockOption ** state, const int row, const Block::blockOption mark){
+	int pCount, oCount; //player count, opponent count (# of marks in diag)
+	pCount = oCount = 0;
+
 	for(int i = 0; i < size; i++){
-		for(int j = 0; j < size; j ++){
-			if(state[i][j] != mark && state[i][j] != Block::Opt_E){
-				rows--;
-				break;
-			}
-		}
+		if(state[row][i] == mark) pCount += 1;
+		else if(state[row][i] == switchMark(mark)) oCount += 1;
 	}
-	return rows;
+	if(pCount == 0) return -1*heuristic[oCount];
+	else if(oCount == 0) return heuristic[pCount];
+	else return 0;
 }
 
 int StateEvaluator::
-countCols(Block::blockOption ** state, Block::blockOption mark){
-	int cols = size;
-	for(int i = 0; i < size; i++){
-		for(int j = 0; j < size; j ++){
-			if(state[j][i] != mark && state[j][i] != Block::Opt_E){
-				cols--;
-				break;
-			}
-		}
+evaluateCol(Block::blockOption ** state, const int col, const Block::blockOption mark){
+	int pCount, oCount; //player count, opponent count (# of marks in diag)
+	pCount = oCount = 0;
+
+	for(int j = 0; j < size; j++){
+		if(state[j][col] == mark) pCount += 1;
+		else if(state[j][col] == switchMark(mark)) oCount += 1;
 	}
-	return cols;
+	if(pCount == 0) return -1*heuristic[oCount];
+	else if(oCount == 0) return heuristic[pCount];
+	else return 0;
 }
 
 int StateEvaluator::
-countDiags(Block::blockOption ** state, Block::blockOption mark){
-	int diag = 2;
-	for(int i = 0; i < size; i++){
-		if(state[i][i] != mark && state[i][i] != Block::Opt_E){
-			diag--;
-			break;
-		}
-	}
+evaluateLeftDiag(Block::blockOption ** state, const Block::blockOption mark){
+	int pCount, oCount; //player count, opponent count (# of marks in diag)
+	pCount = oCount = 0;
 
+	for(int i = 0; i < size; i++){
+		if(state[i][i] == mark) pCount += 1;
+		else if(state[i][i] == switchMark(mark)) oCount += 1;
+	}
+	if(pCount == 0) return -1*heuristic[oCount];
+	else if(oCount == 0) return heuristic[pCount];
+	else return 0;
+}
+
+int StateEvaluator::
+evaluateRightDiag(Block::blockOption ** state, const Block::blockOption mark){
 	int i = 0;
 	int j = size - 1;
+	int pCount, oCount; //player count, opponent count (# of marks in diag)
+	pCount = oCount = 0;
 	for(; i < size && j >= 0; i++, j--){
-		if(state[i][j] != mark && state[i][j] != Block::Opt_E){
-			diag--;
-			break;
-		}
+		if(state[i][j] == mark) pCount += 1;
+		else if(state[i][j] == switchMark(mark)) oCount += 1;
 	}
-	return diag;
+
+	if(pCount == 0) return -1*heuristic[oCount];
+	else if(oCount == 0) return heuristic[pCount];
+	else return 0;
 }
 

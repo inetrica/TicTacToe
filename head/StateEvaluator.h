@@ -6,9 +6,10 @@
 #include <algorithm>
 #include <ctime>
 #include <cstdlib>
+#include <iostream>
 
-#define MAX_ALPHA 8
-#define MIN_BETA -8
+#define MAX_ALPHA 3
+#define MIN_BETA -3
 
 class StateEvaluator{
 	public:
@@ -44,6 +45,9 @@ class StateEvaluator{
 		int bestMove;
 		int size;
 
+		int heuristic[4];
+		void setupHeuristic();
+
 		Block::blockOption ** createState(Block::blockOption ** state, Block::blockOption mark, int move);
 		Block::blockOption switchMark(Block::blockOption);
 
@@ -60,9 +64,10 @@ class StateEvaluator{
 
 		int evaluate(Block::blockOption ** state, Block::blockOption mark);
 
-		int countRows(Block::blockOption ** state, Block::blockOption mark);
-		int countCols(Block::blockOption ** state, Block::blockOption mark);
-		int countDiags(Block::blockOption ** state, Block::blockOption mark);
+		int evaluateRow(Block::blockOption ** state, const int row, const Block::blockOption mark);
+		int evaluateCol(Block::blockOption ** state, const int col, const Block::blockOption mark);
+		int evaluateLeftDiag(Block::blockOption ** state, const Block::blockOption mark);
+		int evaluateRightDiag(Block::blockOption ** state, const Block::blockOption mark);
 };
 
 #endif

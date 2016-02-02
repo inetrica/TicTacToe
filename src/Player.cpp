@@ -127,6 +127,6 @@ calculateRandomMove(std::vector<int> slots) const{
 int Player::
 calculateMinMax(const Board * board, Block::blockOption mark) const{
 	StateEvaluator se(board);
-	se.calcBestMove(mark, 3);
+	se.calcBestMove(mark, 2);
 	return se.getBestMove();
 }
