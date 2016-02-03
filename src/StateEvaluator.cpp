@@ -86,16 +86,16 @@ max_value(Block::blockOption ** state, const Block::blockOption playerMark, int 
 	if(children.size() == 0){
 		//bestMove = -1;
 		//return MIN_BETA;
-		return evaluate(state, playerMark);//*-1
+		return -1*evaluate(state, playerMark);//*-1
 	} else if (depth == 0){
 		/*
 		 * evaluate at the current state based on heuristic
 		 */
 		//bestMove = -1;
-		return evaluate(state, playerMark);
+		return -1*evaluate(state, playerMark);
 	} else {
 		//initiate alpha to be ridiculously low
-		int alpha = -1000;
+		int alpha = -10000;
 
 		for(unsigned i = 0; i < children.size(); i++){
 			/*
@@ -136,7 +136,7 @@ min_value(Block::blockOption ** state, const Block::blockOption playerMark, int 
 		return evaluate(state, playerMark);
 	} else {
 		//initiate alpha to be ridiculously low
-		int beta = 1000;
+		int beta = 10000;
 
 		for(unsigned i = 0; i < children.size(); i++){
 			/*
@@ -199,7 +199,7 @@ evaluate(Block::blockOption ** state, const Block::blockOption mark){
 	if(rdiag == MAX_ALPHA || rdiag == MIN_BETA) return rdiag;
 	*/
 
-	std::cout << sum << std::endl;
+	//std::cout << sum << std::endl;
 	return sum;
 }
 

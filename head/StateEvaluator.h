@@ -45,8 +45,6 @@ class StateEvaluator{
 		int bestMove;
 		int size;
 
-		int heuristic[4];
-		void setupHeuristic();
 
 		Block::blockOption ** createState(Block::blockOption ** state, Block::blockOption mark, int move);
 		Block::blockOption switchMark(Block::blockOption);
@@ -54,6 +52,8 @@ class StateEvaluator{
 		int max_value(Block::blockOption ** state, const Block::blockOption playerMark, int depth);
 		int min_value(Block::blockOption ** state, const Block::blockOption playerMark, int depth);
 
+		int heuristic[4];
+		void setupHeuristic();
 
 
 
