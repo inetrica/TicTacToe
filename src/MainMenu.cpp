@@ -1,18 +1,19 @@
 #include "MainMenu.h"
-#include <iostream>
 
 MainMenu::MainMenu(){
-	active = false;
-	_gamemode = SinglePlayer;
-	_difficulty = Easy;
+	gs = new GameState();
 }
 
-MainMenu::gamemode
-MainMenu::getGamemode(){
-	return _gamemode;
+MainMenu::~MainMenu(){
+	//Don't Delete GameState Here...
+	//We pass it on to Game, delete it there
+	//TODO revisit where deletion of GameState pointer occurs
 }
 
-MainMenu::difficulty
-MainMenu::getDifficulty(){
-	return _difficulty;
+GameState * MainMenu::getGameState(){
+	return gs;
+}
+
+void MainMenu::runLoop(){
+
 }
