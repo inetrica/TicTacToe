@@ -1,0 +1,4 @@
+TicTacToe game in C++ using SFML graphics library
+Difficulty modes Easy & Medium
+When difficulty is Easy, AI chooses next move at random
+when difficulty is Medium, AI uses Min/Max algorithm to calculate best next move
