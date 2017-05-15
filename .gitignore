@@ -1,1 +1,3 @@
 testing/Log/
+*.o
+testing/t*
